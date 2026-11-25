@@ -1,0 +1,56 @@
+name: Device Bug Report
+description: Report hardware problems or bugs on the OnePlus 12.
+title: "[BUG]: "
+body:
+  - type: input
+    id: device
+    attributes:
+      label: Device model
+      placeholder: "OnePlus 12 (CPH2573)"
+    validations:
+      required: true
+
+  - type: input
+    id: build
+    attributes:
+      label: ROM build
+      placeholder: "Project Infinity-X Android 17"
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: Explain what is not working.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Attach relevant logs or screenshots. Remove personal information first.
+    validations:
+      required: false

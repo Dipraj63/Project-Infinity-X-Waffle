@@ -1,0 +1,44 @@
+name: Build Failure
+description: Report Android ROM compilation or source synchronization failures.
+title: "[BUILD]: "
+body:
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: Device codename
+      placeholder: waffle
+    validations:
+      required: true
+
+  - type: input
+    id: branch
+    attributes:
+      label: ROM branch
+      placeholder: "17"
+    validations:
+      required: true
+
+  - type: input
+    id: command
+    attributes:
+      label: Build command
+      placeholder: "m bacon -j4"
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Build error
+      description: Paste the relevant error and surrounding log output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: changes
+    attributes:
+      label: Local changes
+      description: Mention any custom patches or modifications.
+    validations:
+      required: false
