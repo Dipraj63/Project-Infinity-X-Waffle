@@ -71,34 +71,6 @@ On November 25, 2026, an Android 17 GApps userdebug build completed successfully
 - crDroid
 - TheMuppets
 - OnePlus device development community
-### 4. Configure
-
-    source build/envsetup.sh
-    lunch infinity_waffle-userdebug
-
-### 5. Build
-
-    m bacon -j4
-
-Output: `out/target/product/waffle/`
-
-## Build notes
-
-- Dolby integration is temporarily disabled because its configuration was unavailable.
-- Proprietary vendor components remain subject to their respective licenses.
-- Successful compilation does not guarantee that every feature works or that the ROM has been boot-tested.
-
-## Build verification
-
-On November 25, 2026, an Android 17 GApps userdebug build completed successfully. The generated ZIP passed `unzip -t` integrity verification.
-
-## Credits
-
-- Project Infinity-X
-- LineageOS
-- crDroid
-- TheMuppets
-- OnePlus device development community
 
 ## Exact source revisions
 

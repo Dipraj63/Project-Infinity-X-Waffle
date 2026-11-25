@@ -3,11 +3,13 @@ name: Validate Android Manifests
 on:
   push:
     paths:
+      - 'README.md'
       - 'waffle.xml'
       - 'waffle-pinned.xml'
       - '.github/workflows/**'
   pull_request:
     paths:
+      - 'README.md'
       - 'waffle.xml'
       - 'waffle-pinned.xml'
       - '.github/workflows/**'
@@ -23,7 +25,62 @@ jobs:
         run: |
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
-          for filename in ("waffle.xml", "waffle-pinned.xml"):
-              ET.parse(filename)
-              print(f"VALID: {filename}")
+
+          local = ET.parse("waffle.xml").getroot()
+          pinned = ET.parse("waffle-pinned.xml").getroot()
+
+          local_projects = {
+              (p.get("path"), p.get("name"))
+              for p in local.findall("project")
+          }
+          pinned_projects = {
+              (p.get("path"), p.get("name"))
+              for p in pinned.findall("project")
+          }
+
+          missing = local_projects - pinned_projects
+          if missing:
+              raise SystemExit(f"Missing from pinned manifest: {missing}")
+
+          print("PASS: Both XML manifests are valid")
+          print("PASS: All local manifest projects exist in pinned manifest")
+          PY
+
+      - name: Validate README
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          readme = Path("README.md").read_text()
+
+          required = [
+              "## Source",
+              "## Device tree forks",
+              "## Build instructions",
+              "## Build notes",
+              "## Build verification",
+              "## Credits",
+              "## Exact source revisions",
+              "## License",
+          ]
+
+          for heading in required:
+              if heading not in readme:
+                  raise SystemExit(f"Missing README heading: {heading}")
+
+          headings = re.findall(r"^#{1,6} .+$", readme, re.M)
+          duplicates = {h for h in headings if headings.count(h) > 1}
+          if duplicates:
+              raise SystemExit(f"Duplicate README headings: {duplicates}")
+
+          for command in [
+              "repo sync",
+              "lunch infinity_waffle-userdebug",
+              "m bacon -j4",
+          ]:
+              if command not in readme:
+                  raise SystemExit(f"Missing build instruction: {command}")
+
+          print("PASS: README headings and build instructions")
           PY
