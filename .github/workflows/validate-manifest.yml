@@ -1,0 +1,29 @@
+name: Validate Android Manifests
+
+on:
+  push:
+    paths:
+      - 'waffle.xml'
+      - 'waffle-pinned.xml'
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - 'waffle.xml'
+      - 'waffle-pinned.xml'
+      - '.github/workflows/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate XML manifests
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          for filename in ("waffle.xml", "waffle-pinned.xml"):
+              ET.parse(filename)
+              print(f"VALID: {filename}")
+          PY
