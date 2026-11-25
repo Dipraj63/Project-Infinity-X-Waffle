@@ -118,3 +118,11 @@ The following commits were used in the successful November 25, 2026 build.
 | OnePlus IR vendor | crdroidandroid/proprietary_vendor_oneplus_ir | `c398de3b34c2c6ae03a75da8dad3971f75b275d2` |
 
 A complete resolved manifest is included as `waffle-pinned.xml`. It records the exact revisions of all synced projects.
+
+## License
+
+The original build-setup files in this repository are licensed under Apache License 2.0.
+
+See the `LICENSE` file.
+
+Third-party repositories and proprietary vendor components retain their respective licenses.
